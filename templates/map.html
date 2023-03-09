@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Address Finder</title>
+    <!-- <link rel="stylesheet" href="css/style.css"> -->
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  .header {
+  overflow: hidden;
+  /* background-color: #f1f1f1; */
+  background: linear-gradient(90deg, rgba(89,31,201,1) 38%, rgba(90,72,208,1) 70%);
+  padding: 10px 10px;
+}
+
+.header a {
+  float: left;
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px; 
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* .header a:hover {
+  background-color: #ddd;
+  color: black;
+} */
+
+.header a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+.header-right {
+  float: right;
+}
+
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .header-right {
+    float: none;
+  }
+}
+  .descritionsclass {
+   display: flex;
+   margin-bottom: 15px;
+  }
+  .descritionsclass label {
+    padding-right: 10px;
+  }
+  .documentlabel {
+    padding-right: 10px;
+}
+  .upload_box3 {
+    /* border-radius: 20px !important; */
+    /* box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 32%) 0px 2px 16px 0px ; */
+    border-radius: 8px !important;
+    /* width: 100%; */
+    /* box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 32%) 0px 2px 16px 0px; */
+    box-shadow: none;
+    padding: 30px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+  }
+  .uplo_box {
+    padding: 8px;
+    background: #f9fafb;
+    border-radius: 8px ;
+}
+  .hover-underline-animation {
+  display: inline-block;
+  position: relative;
+  color: #fff;
+}
+
+.hover-underline-animation:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+.key_word {
+  display: flex;
+  padding-bottom: 20px;
+  justify-content: space-evenly;
+    flex-direction: column;
+}
+.key_word textarea {
+  width: 100%;
+    border: 1px solid #591fc9;
+    border-radius: 10px;
+    outline: #591fc9;
+    height: 100px;
+}
+.key_word label{
+  color: #591fc9;
+  font-weight: 700;
+  text-align: left;
+}
+.upload_butons {
+  background: #591fc9;
+  color: #fff;
+}
+.headerd{
+    background-color: #e9e9e9;
+    margin-bottom: 20px;
+  }
+  .headerd h3{
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    padding: 20px 0px;
+    text-decoration: none;
+    line-height: 25px;
+    border-radius: 15px;
+    font-size: 25px;
+  }
+  .input-box{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+  .input-box input , .input-box textarea{
+    border: 1px solid #591fc9;
+    border-radius: 10px;
+    outline: #591fc9;
+  }
+  .input-box label{
+    color: #591fc9;
+    font-weight: 700;
+  }
+</style>
+
+  </head>
+  <body>
+    <!-- <nav class="headerd">
+      <h3 class=" bace_title">Google Maps Address Generator</h3>
+    </nav> -->
+    {% include 'headersmap.html' %}
+    <!-- <p style="margin-left:550px;"><a href="{% url 'retrieve' %}">Check data</a></p> -->
+    <div class="d-flex justify-content-center mt-5 upload_file_box">
+      <div class="uplo_box">
+        <div class=" upload_box3 " style="width: 30rem;">
+        
+       
+       
+       {% block content %}
+       <p>{{errortext}}</p>
+  <form method="post" enctype="multipart/form-data" style="text-align: center;">
+    {% csrf_token %}
+    <!-- {{ form.as_p }} -->
+    <div class="key_word"><label for="id_locationdata">Pin URL:</label> <textarea name="locationdata" cols="40" rows="10" required="" id="id_locationdata"></textarea></div>
+      <!-- <div class="key_word"><label for="id_locationlink">Locationlink:</label>
+         <textarea name="locationlink" cols="40" rows="10" required="" id="id_locationlink"></textarea></div> -->
+      <!-- <div class="key_word"><label for="id_mapurl" style=" width: 70px;">Pin URL:</label> 
+        <textarea name="mapurl" cols="40" rows="4" required="" id="id_mapurl"></textarea></div> -->
+    <button class="btn upload_butons" type="submit">Get Location</button>
+  </form>
+  <div class="input-box">
+    <label for="address">Address</label>
+    <textarea name="address" placeholder="{{address}}" id="" cols="30" rows="4"></textarea>
+  </div>
+  <!-- <p>{{address}}</p>
+  <p>{{links}}</p> -->
+
+{% endblock %}
+        </div>
+    </div>
+    </div>    
+  </body>
+</html>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+ 
